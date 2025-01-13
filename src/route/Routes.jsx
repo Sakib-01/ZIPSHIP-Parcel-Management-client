@@ -10,6 +10,7 @@ import BookParcel from "../pages/Dashboard/User/BookParcel";
 import MyDelivery from "../pages/Dashboard/DeliveryMan/MyDelivery";
 import Statistics from "../pages/Dashboard/Admin/Statistics";
 import Common from "../pages/Dashboard/Common/Common";
+import MyParcel from "../pages/Dashboard/User/MyParcel";
 
 export const router = createBrowserRouter([
   {
@@ -38,14 +39,21 @@ export const router = createBrowserRouter([
         index: true,
         element: <Common></Common>,
       },
+      // user route
       {
         path: "/dashboard/book-parcel",
         element: <BookParcel></BookParcel>,
       },
       {
+        path: "/dashboard/my-parcel",
+        element: <MyParcel />,
+      },
+      // deliveryman route
+      {
         path: "/dashboard/mydelivery",
         element: <MyDelivery></MyDelivery>,
       },
+      // admin route
       {
         path: "/dashboard",
         element: <Statistics></Statistics>,
