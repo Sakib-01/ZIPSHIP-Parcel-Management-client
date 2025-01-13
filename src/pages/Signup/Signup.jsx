@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import AOS from "aos";
 import { Link, useNavigate } from "react-router-dom";
-import { imageUpload } from "../../api/utils";
+import { imageUpload, saveUser } from "../../api/utils";
 import toast from "react-hot-toast";
 
 const Signup = () => {
@@ -36,6 +36,8 @@ const Signup = () => {
       await updateUserProfile(name, photoURL);
       // Log role and user info for debugging
       console.log({ name, email, role, result });
+      await saveUser({ ...result?.user, displayName: name, photoURL, role });
+
       navigate("/");
       toast.success("Signup successful");
     } catch (err) {
