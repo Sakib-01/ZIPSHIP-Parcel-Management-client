@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import login from "../../assets/lottie/login.json";
 import Lottie from "lottie-react";
+import { saveUser } from "../../api/utils";
 
 const Login = () => {
   useEffect(() => {
