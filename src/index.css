@@ -1,0 +1,47 @@
+/* @layer base {
+  :root {
+    --text: #0a1f1e;
+    --background: #ffffff;
+    --primary: #0e7490; */
+/* --primary: #42cdc1; */
+/* --secondary: #8fe5dc;
+    --accent: #6ae2d8;
+  } */
+/* .dark {
+    --text: #e0f5f4;
+    --background: #091212;
+    --primary: #32bdb2;
+    --secondary: #1a7067;
+    --accent: #1d958b;
+  }
+} */
+
+@layer base {
+  :root {
+    --text: #0b1113;
+    --background: #f9fbfb;
+    --primary: #0e7490;
+    --secondary: #a19fc6;
+    --accent: #4ecef9;
+  }
+  .dark {
+    --text: #ecf2f4;
+    --background: #040606;
+    --primary: #6fd5f1;
+    --secondary: #3b3960;
+    --accent: #0686b1;
+  }
+}
+
+.swiper-button-prev::after {
+  display: none;
+}
+.swiper-button-next::after {
+  display: none;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* #0e7490 */
