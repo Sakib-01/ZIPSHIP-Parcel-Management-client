@@ -12,7 +12,7 @@ const UserMenu = () => {
       <MenuItem
         icon={CiBookmarkCheck}
         label="Book Parcel"
-        address="book-parcel"
+        address="dashboard"
       />
       <MenuItem icon={FaBoxes} label="My Parcel" address="my-parcel" />
       <MenuItem icon={CgProfile} label="My Profile" address="my-profile" />
