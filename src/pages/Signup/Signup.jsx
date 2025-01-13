@@ -46,6 +46,19 @@ const Signup = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      //User Registration using google
+      const data = await signInWithGoogle();
+      await saveUser(data?.user);
+      navigate("/");
+      toast.success("Signup Successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    }
+  };
+
   return (
     <div
       data-aos="fade-right"
@@ -159,7 +172,7 @@ const Signup = () => {
           </div>
 
           <div
-            onClick={signInWithGoogle}
+            onClick={handleGoogleSignIn}
             className="flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg hover:bg-gray-50"
           >
             <div className="px-4 py-2">
