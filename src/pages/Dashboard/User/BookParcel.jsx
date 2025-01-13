@@ -45,8 +45,10 @@ const BookParcel = () => {
   }, [parcelWeight]);
 
   return (
-    <div className="p-6 bg-gray-100 rounded-md shadow-md max-w-xl mx-auto mt-10">
-      <h2 className="text-2xl font-bold text-center mb-6">Book a Parcel</h2>
+    <div className="p-6 bg-secondary rounded-md shadow-md max-w-xl mx-auto mt-10">
+      <h2 className="text-2xl font-bold text-center mb-6 text-primary">
+        Book a Parcel
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex gap-5 ">
           <div className="flex-grow">

@@ -2,6 +2,8 @@
 import React, { useContext, useState } from "react";
 import { FaBell } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
+
+import { BsMoon, BsSun } from "react-icons/bs";
 import { ThemeContext } from "../../providers/theme/Theme";
 import useAuth from "../../hooks/useAuth";
 
@@ -55,7 +57,7 @@ const Navbar = () => {
               />
 
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 text-text">
+                <div className="absolute right-0 mt-2 w-48 bg-background shadow-lg rounded-lg p-4 text-text">
                   <p className="text-sm font-medium">{user.displayName}</p>
                   <hr className="my-2" />
                   <NavLink
@@ -80,6 +82,17 @@ const Navbar = () => {
               </button>
             </Link>
           )}
+          {/* Dark/Light Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="focus:outline-none text-lg p-2 rounded-full bg-primary"
+          >
+            {isDarkMode ? (
+              <BsSun className="text-yellow-300" />
+            ) : (
+              <BsMoon className="text-white" />
+            )}
+          </button>
         </div>
       </nav>
     </header>

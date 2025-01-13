@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import UserMenu from "./Menu/UserMenu";
 import DeliveryManMenu from "./Menu/DeliveryManMenu";
 import AdminMenu from "./Menu/AdminMenu";
@@ -11,8 +11,13 @@ import { Link, useNavigate } from "react-router-dom";
 import MenuItem from "./Menu/MenuItem";
 import { FcSettings } from "react-icons/fc";
 
+import { BsMoon, BsSun } from "react-icons/bs";
+import { ThemeContext } from "../../../providers/theme/Theme";
+
 const Sidebar = () => {
   const { logOut } = useAuth();
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+
   const [isActive, setActive] = useState();
   const [role, isLoading] = useRole();
   const navigate = useNavigate();
@@ -38,13 +43,13 @@ const Sidebar = () => {
         <div>
           <div className="block cursor-pointer p-4 font-bold">
             <Link to="/">
-              <img
+              {/* <img
                 // className='hidden md:block'
-                src="https://i.ibb.co/4ZXzmq5/logo.png"
+                // src="https://i.ibb.co/4ZXzmq5/logo.png"
                 alt="logo"
                 width="100"
                 height="100"
-              />
+              /> */}
             </Link>
           </div>
         </div>
@@ -89,8 +94,18 @@ const Sidebar = () => {
             </nav>
           </div>
         </div>
-
         <div>
+          {/* Dark/Light Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="focus:outline-none text-lg p-2 rounded-full bg-primary"
+          >
+            {isDarkMode ? (
+              <BsSun className="text-yellow-300" />
+            ) : (
+              <BsMoon className="text-white" />
+            )}
+          </button>
           <hr />
 
           <MenuItem icon={FcSettings} label="Home" address="/" />
