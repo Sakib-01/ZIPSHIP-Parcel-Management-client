@@ -113,7 +113,7 @@ const MyProfile = () => {
           <input
             type="text"
             name="phone"
-            defaultValue={updatedUser?.phone || user?.phone || myProfile?.phone}
+            defaultValue={myProfile?.phone}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           />
         </div>

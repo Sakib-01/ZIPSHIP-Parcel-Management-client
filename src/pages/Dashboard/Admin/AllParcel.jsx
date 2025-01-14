@@ -74,61 +74,65 @@ const AllParcel = () => {
   return (
     <div>
       <h2 className="text-text">All Parcels</h2>
-      <table className="table-auto w-full border-collapse border border-gray-300 bg-background text-text">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 px-4 py-2">User's Name</th>
-            <th className="border border-gray-300 px-4 py-2">User's Phone</th>
-            <th className="border border-gray-300 px-4 py-2">Booking Date</th>
-            <th className="border border-gray-300 px-4 py-2">
-              Requested Delivery Date
-            </th>
-            <th className="border border-gray-300 px-4 py-2">DMan Id</th>
-            <th className="border border-gray-300 px-4 py-2">Approx D-Date</th>
-            <th className="border border-gray-300 px-4 py-2">Cost</th>
-            <th className="border border-gray-300 px-4 py-2">Status</th>
-            <th className="border border-gray-300 px-4 py-2">Manage</th>
-          </tr>
-        </thead>
-        <tbody className="text-text bg-background">
-          {parcels.map((parcel) => (
-            <tr key={parcel._id}>
-              <td className="border border-gray-300 px-4 py-2">
-                {parcel.name}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {parcel.phoneNumber}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {parcel.bookingDate}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {parcel.deliveryDate}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {parcel.deliveryMan || "N/A"}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {parcel.approxDeliveryDate || "not assigned"}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                ${parcel.price}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {parcel.status}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                <button
-                  className="bg-primary text-white px-4 py-2 rounded"
-                  onClick={() => handleManageClick(parcel._id)}
-                >
-                  Manage
-                </button>
-              </td>
+      <div className="overflow-x-auto">
+        <table className="table-auto w-full border-collapse border border-gray-300 bg-background text-text">
+          <thead>
+            <tr>
+              <th className="border border-gray-300 px-4 py-2">User's Name</th>
+              <th className="border border-gray-300 px-4 py-2">User's Phone</th>
+              <th className="border border-gray-300 px-4 py-2">Booking Date</th>
+              <th className="border border-gray-300 px-4 py-2">
+                Requested Delivery Date
+              </th>
+              <th className="border border-gray-300 px-4 py-2">DMan Id</th>
+              <th className="border border-gray-300 px-4 py-2">
+                Approx D-Date
+              </th>
+              <th className="border border-gray-300 px-4 py-2">Cost</th>
+              <th className="border border-gray-300 px-4 py-2">Status</th>
+              <th className="border border-gray-300 px-4 py-2">Manage</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="text-text bg-background">
+            {parcels.map((parcel) => (
+              <tr key={parcel._id}>
+                <td className="border border-gray-300 px-4 py-2">
+                  {parcel.name}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {parcel.phoneNumber}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {parcel.bookingDate}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {parcel.deliveryDate}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {parcel.deliveryMan || "N/A"}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {parcel.approxDeliveryDate || "not assigned"}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  ${parcel.price}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {parcel.status}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  <button
+                    className="bg-primary text-white px-4 py-2 rounded"
+                    onClick={() => handleManageClick(parcel._id)}
+                  >
+                    Manage
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Modal */}
       {isModalOpen && (
