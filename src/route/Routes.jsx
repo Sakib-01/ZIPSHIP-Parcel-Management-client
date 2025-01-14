@@ -11,6 +11,7 @@ import MyDelivery from "../pages/Dashboard/DeliveryMan/MyDelivery";
 import Statistics from "../pages/Dashboard/Admin/Statistics";
 import Common from "../pages/Dashboard/Common/Common";
 import MyParcel from "../pages/Dashboard/User/MyParcel";
+import UpdateParcel from "../pages/Dashboard/User/UpdateParcel";
 
 export const router = createBrowserRouter([
   {
@@ -41,12 +42,18 @@ export const router = createBrowserRouter([
       },
       // user route
       {
-        path: "/dashboard/book-parcel",
+        path: "book-parcel",
         element: <BookParcel></BookParcel>,
       },
       {
-        path: "/dashboard/my-parcel",
+        path: "my-parcel",
         element: <MyParcel />,
+      },
+      {
+        path: "/dashboard/update-parcel/:id",
+        element: <UpdateParcel />,
+        // loader: ({ params }) =>
+        //   fetch(`http://localhost:5000/update/${params.id}`),
       },
       // deliveryman route
       {

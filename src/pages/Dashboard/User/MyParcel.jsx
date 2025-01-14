@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import { Link } from "react-router-dom";
 
 const MyParcel = () => {
   const { user } = useAuth();
@@ -55,12 +56,18 @@ const MyParcel = () => {
                 </td>
                 <td className="border px-4 py-2">{parcel.status}</td>
                 <td className="border px-4 py-2 space-x-2">
-                  <button
-                    className="bg-blue-500 text-white px-2 py-1 rounded disabled:bg-gray-300"
-                    disabled={parcel.status !== "pending"}
+                  <Link
+                    to={`/dashboard/update-parcel/${parcel._id}`}
+                    className={`bg-blue-500 text-white px-2 py-1 rounded ${
+                      parcel.status !== "pending" &&
+                      "opacity-50 cursor-not-allowed"
+                    }`}
+                    onClick={(e) => {
+                      if (parcel.status !== "pending") e.preventDefault();
+                    }}
                   >
                     Update
-                  </button>
+                  </Link>
                   <button
                     className="bg-red-500 text-white px-2 py-1 rounded disabled:bg-gray-300"
                     disabled={parcel.status !== "pending"}
