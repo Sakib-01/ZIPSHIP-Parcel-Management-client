@@ -2,15 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import toast from "react-hot-toast";
 
 const AllParcel = () => {
   const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDeliveryMan, setSelectedDeliveryMan] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("pending");
   const [currentParcelId, setCurrentParcelId] = useState(null);
 
-  const { data: parcels = [], isLoading } = useQuery({
+  const {
+    data: parcels = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["parcels"],
     queryFn: async () => {
       const res = await axiosSecure.get("/all-parcel");
@@ -28,21 +34,33 @@ const AllParcel = () => {
 
   const handleManageClick = (parcelId) => {
     setCurrentParcelId(parcelId);
+    const parcel = parcels.find((p) => p._id === parcelId);
+    if (parcel) {
+      setSelectedDeliveryMan(parcel.deliveryMan || "");
+      setDeliveryDate(parcel.approxDeliveryDate || "");
+      setSelectedStatus(parcel.status || "pending");
+    }
     setIsModalOpen(true);
   };
 
   const handleAssign = async () => {
+    console.log(currentParcelId);
     try {
       // Make an API call to update the parcel with the assigned deliveryman and delivery date
       const res = await axiosSecure.patch(`/update-parcel/${currentParcelId}`, {
         deliveryManId: selectedDeliveryMan,
         approximateDeliveryDate: deliveryDate,
+        status: selectedStatus,
       });
+      console.log(res.data);
       if (res.status === 200) {
         // Close the modal and reset form values
         setIsModalOpen(false);
         setSelectedDeliveryMan("");
         setDeliveryDate("");
+        toast.success("successful");
+        refetch();
+        // setSelectedStatus("");
       }
     } catch (error) {
       console.error("Error assigning delivery man:", error);
@@ -51,6 +69,7 @@ const AllParcel = () => {
 
   if (isLoading) return <LoadingSpinner />;
   console.log(deliveryMen);
+  console.log(parcels);
 
   return (
     <div>
@@ -64,6 +83,8 @@ const AllParcel = () => {
             <th className="border border-gray-300 px-4 py-2">
               Requested Delivery Date
             </th>
+            <th className="border border-gray-300 px-4 py-2">DMan Id</th>
+            <th className="border border-gray-300 px-4 py-2">Approx D-Date</th>
             <th className="border border-gray-300 px-4 py-2">Cost</th>
             <th className="border border-gray-300 px-4 py-2">Status</th>
             <th className="border border-gray-300 px-4 py-2">Manage</th>
@@ -71,7 +92,7 @@ const AllParcel = () => {
         </thead>
         <tbody className="text-text bg-background">
           {parcels.map((parcel) => (
-            <tr key={parcel.id}>
+            <tr key={parcel._id}>
               <td className="border border-gray-300 px-4 py-2">
                 {parcel.name}
               </td>
@@ -85,6 +106,12 @@ const AllParcel = () => {
                 {parcel.deliveryDate}
               </td>
               <td className="border border-gray-300 px-4 py-2">
+                {parcel.deliveryMan || "N/A"}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                {parcel.approxDeliveryDate || "not assigned"}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
                 ${parcel.price}
               </td>
               <td className="border border-gray-300 px-4 py-2">
@@ -93,7 +120,7 @@ const AllParcel = () => {
               <td className="border border-gray-300 px-4 py-2">
                 <button
                   className="bg-primary text-white px-4 py-2 rounded"
-                  onClick={() => handleManageClick(parcel.id)}
+                  onClick={() => handleManageClick(parcel._id)}
                 >
                   Manage
                 </button>
@@ -106,7 +133,7 @@ const AllParcel = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg w-96">
+          <div className="bg-secondary p-6 rounded-lg w-96 text-text">
             <h3 className="text-xl mb-4">Assign Delivery Man</h3>
             <div className="mb-4">
               <label htmlFor="deliveryMan" className="block mb-2">
@@ -138,9 +165,26 @@ const AllParcel = () => {
                 onChange={(e) => setDeliveryDate(e.target.value)}
               />
             </div>
+            <div className="mb-4">
+              <label htmlFor="deliveryMan" className="block mb-2">
+                Status
+              </label>
+              <select
+                id="Status"
+                className="border border-gray-300 p-2 w-full"
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+              >
+                <option value="">Select Status</option>
+                <option value="On The Way">On The Way</option>
+                <option value="delivered">Delivered</option>
+                <option value="returned">Returned</option>
+              </select>
+            </div>
+
             <div className="flex justify-end">
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                className="bg-primary text-white px-4 py-2 rounded mr-2"
                 onClick={handleAssign}
               >
                 Assign

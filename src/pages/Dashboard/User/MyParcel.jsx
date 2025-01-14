@@ -53,7 +53,7 @@ const MyParcel = () => {
   };
 
   if (isLoading) return <LoadingSpinner />;
-
+  console.log(parcels);
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">My Parcels</h2>
@@ -78,13 +78,13 @@ const MyParcel = () => {
                 <td className="border px-4 py-2">{parcel.parcelType}</td>
                 <td className="border px-4 py-2">{parcel.deliveryDate}</td>
                 <td className="border px-4 py-2">
-                  {parcel.approximateDeliveryDate || "soon"}
+                  {parcel.approxDeliveryDate || "soon"}
                 </td>
                 <td className="border px-4 py-2">
                   {new Date(parcel.bookingDate).toLocaleDateString()}
                 </td>
                 <td className="border px-4 py-2">
-                  {parcel.deliveryManId || "Not Assigned"}
+                  {parcel.deliveryMan || "Not Assigned"}
                 </td>
                 <td className="border px-4 py-2">{parcel.status}</td>
                 <td className="border px-4 py-2 space-x-2">
