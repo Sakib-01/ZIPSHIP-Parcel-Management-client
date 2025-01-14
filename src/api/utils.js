@@ -16,6 +16,7 @@ export const saveUser = async (user) => {
     image: user?.photoURL,
     email: user?.email,
     role: user?.role,
+    phone: user?.phone,
   });
 };
 export const updateUser = async (user) => {
