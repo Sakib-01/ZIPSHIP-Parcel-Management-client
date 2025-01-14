@@ -18,3 +18,10 @@ export const saveUser = async (user) => {
     role: user?.role,
   });
 };
+export const updateUser = async (user) => {
+  await axios.put(`${import.meta.env.VITE_API_URL}/updateUser/${user?.email}`, {
+    name: user?.displayName,
+    image: user?.photoURL,
+    email: user?.email,
+  });
+};

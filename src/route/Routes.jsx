@@ -12,6 +12,7 @@ import Statistics from "../pages/Dashboard/Admin/Statistics";
 import Common from "../pages/Dashboard/Common/Common";
 import MyParcel from "../pages/Dashboard/User/MyParcel";
 import UpdateParcel from "../pages/Dashboard/User/UpdateParcel";
+import MyProfile from "../pages/Dashboard/User/MyProfile";
 
 export const router = createBrowserRouter([
   {
@@ -50,10 +51,12 @@ export const router = createBrowserRouter([
         element: <MyParcel />,
       },
       {
+        path: "my-profile",
+        element: <MyProfile />,
+      },
+      {
         path: "/dashboard/update-parcel/:id",
         element: <UpdateParcel />,
-        // loader: ({ params }) =>
-        //   fetch(`http://localhost:5000/update/${params.id}`),
       },
       // deliveryman route
       {
