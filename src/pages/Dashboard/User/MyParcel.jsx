@@ -12,6 +12,7 @@ const MyParcel = () => {
   const [rating, setRating] = useState(0);
   const [feedbackText, setFeedbackText] = useState("");
   const [deliveryMan, setDeliveryMan] = useState("");
+  const [selectedParcel, setSelectedParcel] = useState(null);
   const axiosSecure = useAxiosSecure();
   const {
     data: parcels = [],
@@ -64,16 +65,16 @@ const MyParcel = () => {
       feedbackText,
       deliveryManId: deliveryMan,
     };
+    console.log(deliveryMan);
 
     try {
       const res = await axiosSecure.post("/reviews", reviewData);
-      if (res.data.success) {
+      console.log(res.data);
+      if (res.data.insertedId) {
         Swal.fire("Success!", "Your review has been submitted.", "success");
         setIsModalOpen(false);
         setRating(0);
         setFeedbackText("");
-      } else {
-        Swal.fire("Failed!", "Failed to submit the review.", "error");
       }
     } catch (error) {
       console.error("Error submitting review:", error);
@@ -143,7 +144,11 @@ const MyParcel = () => {
                   </button>
                   {parcel.status === "delivered" && (
                     <button
-                      onClick={() => setIsModalOpen(true)}
+                      onClick={() => {
+                        setDeliveryMan(parcel.deliveryMan);
+                        setSelectedParcel(parcel);
+                        setIsModalOpen(true);
+                      }}
                       className="bg-green-500 text-white px-2 py-1 rounded"
                     >
                       Review
@@ -216,7 +221,7 @@ const MyParcel = () => {
               </div>
 
               {/* Auto-filled Delivery Man ID */}
-              {/* <div className="mb-4">
+              <div className="mb-4">
                 <label htmlFor="deliveryManId" className="block mb-2">
                   Delivery Man's ID
                 </label>
@@ -224,11 +229,11 @@ const MyParcel = () => {
                   id="deliveryManId"
                   type="text"
                   className="border border-gray-300 p-2 w-full"
-                  value={parcel.deliveryMan || "Not Assigned"}
+                  value={deliveryMan || "Not Assigned"}
                   readOnly
                   onChange={(e) => setDeliveryMan(e.target.value)}
                 />
-              </div> */}
+              </div>
 
               <div className="flex justify-end">
                 <button
