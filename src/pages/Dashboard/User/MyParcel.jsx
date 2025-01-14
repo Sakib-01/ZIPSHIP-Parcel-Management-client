@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyParcel = () => {
   const { user } = useAuth();
@@ -19,6 +20,37 @@ const MyParcel = () => {
       return res.data;
     },
   });
+
+  const handleCancle = async (parcelId) => {
+    const confirmCancel = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, cancel it!",
+    });
+
+    if (confirmCancel.isConfirmed) {
+      try {
+        const res = await axiosSecure.delete(`/delete/${parcelId}`);
+        if (res.data.deletedCount > 0) {
+          Swal.fire("Cancelled!", "Your parcel has been cancelled.", "success");
+          refetch(); // Refresh parcel list
+        } else {
+          Swal.fire("Failed!", "Failed to cancel the parcel.", "error");
+        }
+      } catch (error) {
+        console.error("Error canceling parcel:", error);
+        Swal.fire(
+          "Error!",
+          "An error occurred while canceling the parcel.",
+          "error"
+        );
+      }
+    }
+  };
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -69,6 +101,7 @@ const MyParcel = () => {
                     Update
                   </Link>
                   <button
+                    onClick={() => handleCancle(parcel._id)}
                     className="bg-red-500 text-white px-2 py-1 rounded disabled:bg-gray-300"
                     disabled={parcel.status !== "pending"}
                   >
