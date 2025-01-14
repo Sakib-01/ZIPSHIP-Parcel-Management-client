@@ -10,7 +10,7 @@ const DeliveryManMenu = () => {
       <MenuItem
         icon={FaListCheck}
         label=" My Delivery List"
-        address="dashboard"
+        address="mydelivery"
       />
       <MenuItem icon={VscFeedback} label="My Reviews" address="my-review" />
     </div>

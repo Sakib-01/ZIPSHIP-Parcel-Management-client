@@ -16,6 +16,7 @@ import MyProfile from "../pages/Dashboard/User/MyProfile";
 import AllParcel from "../pages/Dashboard/Admin/AllParcel";
 import AllDeliveryMen from "../pages/Dashboard/Admin/AllDeliveryMen";
 import AllUser from "../pages/Dashboard/Admin/AllUser";
+import MyReview from "../pages/Dashboard/DeliveryMan/MyReview";
 
 export const router = createBrowserRouter([
   {
@@ -63,8 +64,12 @@ export const router = createBrowserRouter([
       },
       // deliveryman route
       {
-        path: "/dashboard/mydelivery",
+        path: "mydelivery",
         element: <MyDelivery></MyDelivery>,
+      },
+      {
+        path: "my-review",
+        element: <MyReview />,
       },
       // admin route
       {

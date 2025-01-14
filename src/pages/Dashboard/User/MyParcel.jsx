@@ -59,7 +59,7 @@ const MyParcel = () => {
 
   const handleSubmitReview = async () => {
     const reviewData = {
-      userName: user?.name,
+      userName: user?.displayName,
       userImage: user?.photoURL,
       rating,
       feedbackText,

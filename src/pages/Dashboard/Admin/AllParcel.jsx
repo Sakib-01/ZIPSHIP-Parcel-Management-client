@@ -11,15 +11,18 @@ const AllParcel = () => {
   const [deliveryDate, setDeliveryDate] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("pending");
   const [currentParcelId, setCurrentParcelId] = useState(null);
+  const [filters, setFilters] = useState({ from: "", to: "" });
 
   const {
     data: parcels = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["parcels"],
+    queryKey: ["parcels", filters],
     queryFn: async () => {
-      const res = await axiosSecure.get("/all-parcel");
+      const res = await axiosSecure.get(
+        `/all-parcel?from=${filters.from}&to=${filters.to}`
+      );
       return res.data;
     },
   });
@@ -73,7 +76,35 @@ const AllParcel = () => {
 
   return (
     <div>
-      <h2 className="text-text">All Parcels</h2>
+      <h2 className="text-primary my-5 underline text-3xl flex mx-auto justify-center items-center">
+        All Parcels
+      </h2>
+      {/* Search Filters */}
+      <div className="flex  gap-2">
+        <div>
+          <label htmlFor="deliveryDate" className="block mb-2">
+            Search from Date
+          </label>
+          <input
+            type="date"
+            value={filters.from}
+            className="border-2 mb-10"
+            onChange={(e) => setFilters({ ...filters, from: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="deliveryDate" className="block mb-2">
+            to Date
+          </label>
+          <input
+            type="date"
+            value={filters.to}
+            className="border-2 mb-10"
+            onChange={(e) => setFilters({ ...filters, to: e.target.value })}
+          />
+        </div>
+        {/* <button onClick={fetchParcels}>Search</button> */}
+      </div>
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-300 bg-background text-text">
           <thead>
