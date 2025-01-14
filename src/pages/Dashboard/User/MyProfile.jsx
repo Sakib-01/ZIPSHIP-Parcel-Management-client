@@ -4,20 +4,35 @@ import { imageUpload, updateUser } from "../../../api/utils";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import { useQuery } from "@tanstack/react-query";
 
 const MyProfile = () => {
   const axiosSecure = useAxiosSecure();
   const { user, updateUserProfile, setUser, loading } = useAuth();
   const [updatedUser, setUpdatedUser] = useState(user);
   console.log(user);
+  const {
+    data: myProfile = {},
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["myProfile"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/user/${user?.email}`);
+      return res.data;
+    },
+    enabled: !!user?.email,
+  });
+  console.log(myProfile);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
+    const phone = form.phone.value;
     const image = form.image.files[0];
     const photoURL = await imageUpload(image);
-    console.log({ name, email, image, photoURL });
+    console.log({ name, email, phone, image, photoURL });
 
     try {
       await updateUserProfile(name, photoURL);
@@ -25,6 +40,7 @@ const MyProfile = () => {
       const response = await axiosSecure.put(`/updateUser/${user?.email}`, {
         name,
         image: photoURL,
+        phone,
       });
 
       // Handle the response if needed
@@ -39,6 +55,7 @@ const MyProfile = () => {
     }
   };
   if (loading) return <LoadingSpinner></LoadingSpinner>;
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
   return (
     <div className="p-6 max-w-lg mx-auto bg-white shadow-md rounded-md">
       <h2 className="text-3xl font-bold text-gray-700 mb-6">My Profile</h2>
@@ -87,6 +104,17 @@ const MyProfile = () => {
             defaultValue={updatedUser?.email || user?.email}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
             readOnly
+          />
+        </div>
+        <div className="mt-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Phone
+          </label>
+          <input
+            type="text"
+            name="phone"
+            defaultValue={updatedUser?.phone || user?.phone || myProfile?.phone}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           />
         </div>
         <div className="mt-4">
