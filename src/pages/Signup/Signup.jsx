@@ -24,6 +24,7 @@ const Signup = () => {
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
+    const phone = form.phone.value;
     const password = form.password.value;
     const role = form.role.value;
     const image = form.image.files[0];
@@ -36,7 +37,13 @@ const Signup = () => {
       await updateUserProfile(name, photoURL);
       // Log role and user info for debugging
       console.log({ name, email, role, result });
-      await saveUser({ ...result?.user, displayName: name, photoURL, role });
+      await saveUser({
+        ...result?.user,
+        displayName: name,
+        photoURL,
+        role,
+        phone,
+      });
 
       navigate("/");
       toast.success("Signup successful");
@@ -115,6 +122,21 @@ const Signup = () => {
                 name="email"
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                 type="email"
+                required
+              />
+            </div>
+            <div className="mt-4">
+              <label
+                className="block mb-2 text-sm font-medium text-primary"
+                htmlFor="phone"
+              >
+                Phone No
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+                type="text"
                 required
               />
             </div>

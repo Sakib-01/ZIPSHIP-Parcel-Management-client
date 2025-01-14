@@ -14,6 +14,7 @@ import MyParcel from "../pages/Dashboard/User/MyParcel";
 import UpdateParcel from "../pages/Dashboard/User/UpdateParcel";
 import MyProfile from "../pages/Dashboard/User/MyProfile";
 import AllParcel from "../pages/Dashboard/Admin/AllParcel";
+import AllDeliveryMen from "../pages/Dashboard/Admin/AllDeliveryMen";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
       {
         path: "all-parcels",
         element: <AllParcel />,
+      },
+      {
+        path: "all-deliverymen",
+        element: <AllDeliveryMen />,
       },
     ],
   },
