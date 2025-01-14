@@ -13,6 +13,7 @@ import Common from "../pages/Dashboard/Common/Common";
 import MyParcel from "../pages/Dashboard/User/MyParcel";
 import UpdateParcel from "../pages/Dashboard/User/UpdateParcel";
 import MyProfile from "../pages/Dashboard/User/MyProfile";
+import AllParcel from "../pages/Dashboard/Admin/AllParcel";
 
 export const router = createBrowserRouter([
   {
@@ -65,8 +66,12 @@ export const router = createBrowserRouter([
       },
       // admin route
       {
-        path: "/dashboard",
+        path: "statistics",
         element: <Statistics></Statistics>,
+      },
+      {
+        path: "all-parcels",
+        element: <AllParcel />,
       },
     ],
   },
