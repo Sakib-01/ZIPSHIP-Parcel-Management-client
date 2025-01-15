@@ -155,6 +155,16 @@ const MyParcel = () => {
                     </button>
                   )}
                 </td>
+                <td className="border px-4 py-2 space-x-2">
+                  <Link
+                    to="/dashboard/payment"
+                    state={{ parcel }}
+                    // to={{ pathname: "/dashboard/payment", state: { parcel } }}
+                    className="bg-blue-500 text-white px-2 py-1 rounded"
+                  >
+                    PAY
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

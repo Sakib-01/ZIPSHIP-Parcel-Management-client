@@ -17,6 +17,7 @@ import AllParcel from "../pages/Dashboard/Admin/AllParcel";
 import AllDeliveryMen from "../pages/Dashboard/Admin/AllDeliveryMen";
 import AllUser from "../pages/Dashboard/Admin/AllUser";
 import MyReview from "../pages/Dashboard/DeliveryMan/MyReview";
+import Payment from "../pages/Dashboard/User/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/update-parcel/:id",
         element: <UpdateParcel />,
+      },
+      {
+        path: "/dashboard/payment",
+        element: <Payment />,
       },
       // deliveryman route
       {
