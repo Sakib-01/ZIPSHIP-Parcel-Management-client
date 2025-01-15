@@ -18,6 +18,7 @@ import AllDeliveryMen from "../pages/Dashboard/Admin/AllDeliveryMen";
 import AllUser from "../pages/Dashboard/Admin/AllUser";
 import MyReview from "../pages/Dashboard/DeliveryMan/MyReview";
 import Payment from "../pages/Dashboard/User/Payment/Payment";
+import MapComponent from "../components/MapComponent/MapComponent";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
         path: "my-review",
         element: <MyReview />,
       },
+      // {
+      //   path: "/dashboard/map",
+      //   element: <MapComponent />,
+      // },
       // admin route
       {
         path: "statistics",

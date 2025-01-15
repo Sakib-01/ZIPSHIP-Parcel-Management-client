@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import MapComponent from "../../../components/MapComponent/MapComponent";
 // import MapComponent from "../../../components/MapComponent/MapComponent";
 
 const MyDelivery = () => {
@@ -12,7 +13,10 @@ const MyDelivery = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isParcelLoading, setIsParcelLoading] = useState(true);
 
-  // const [showMap, setShowMap] = useState(false);
+  const [selectedParcel, setSelectedParcel] = useState(null);
+
+  const [showMap, setShowMap] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
   // Fetch user data
   useEffect(() => {
@@ -51,7 +55,14 @@ const MyDelivery = () => {
   // const handleButtonClick = () => {
   //   setShowMap(true); // Set to true when the button is clicked
   // };
+
+  const handleViewLocation = (latitude, longitude) => {
+    console.log(latitude, longitude);
+    setSelectedLocation({ latitude, longitude });
+  };
+
   console.log(parcels);
+  console.log(selectedLocation);
 
   // Handle action confirmation
   const handleActionConfirm = async (parcelId, newStatus) => {
@@ -140,17 +151,17 @@ const MyDelivery = () => {
                   <td className="text-center text-black border px-4 py-2 space-y-2">
                     <button
                       className="bg-blue-500 text-white px-2 py-1 rounded w-full"
-                      // onClick={() =>
-                      //   alert(`View location for parcel ID: ${parcel.id}`)
-                      // }
                       // onClick={handleButtonClick}
+                      onClick={() =>
+                        handleViewLocation(parcel.latitude, parcel.longitude)
+                      }
                     >
                       View Location
                       {/* {showMap && (
                         <div className="mt-4">
                           <MapComponent
-                            latitude={parcel.latitude}
-                            longitude={parcel.longitude}
+                          latitude={parcel.latitude}
+                          longitude={parcel.longitude}
                           />
                         </div>
                       )} */}
@@ -178,6 +189,14 @@ const MyDelivery = () => {
           </table>
         </div>
       </div>
+      {selectedLocation && (
+        <div className="mt-4">
+          <MapComponent
+            latitude={selectedLocation.latitude}
+            longitude={selectedLocation.longitude}
+          />
+        </div>
+      )}
     </div>
   );
 };

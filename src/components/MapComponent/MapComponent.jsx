@@ -1,30 +1,53 @@
-// import React from "react";
-// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import React from "react";
+// import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
-// const MapComponent = () => {
-//   // Example coordinates for display
-//   const position = [40.7128, -74.006]; // Replace with your latitude and longitude
+import "leaflet/dist/leaflet.css"; // Import Leaflet CSS
+// import L from "leaflet";
+// import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+// import markerIcon from "leaflet/dist/images/marker-icon.png";
+// import markerShadow from "leaflet/dist/images/marker-shadow.png";
+// import { MapContainer } from "react-leaflet/MapContainer";
+// import { TileLayer } from "react-leaflet/TileLayer";
+// import { useMap } from "react-leaflet/hooks";
+// import { Marker, Popup } from "react-leaflet";
 
-//   return (
-//     <div className="w-full h-96">
-//       <MapContainer
-//         center={position}
-//         zoom={13}
-//         scrollWheelZoom={false}
-//         className="h-full w-full"
-//       >
-//         <TileLayer
-//           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//         />
-//         <Marker position={position}>
-//           <Popup>
-//             Parcel Location: {position[0]}, {position[1]}
-//           </Popup>
-//         </Marker>
-//       </MapContainer>
-//     </div>
-//   );
-// };
+// Fix for default marker icons
+// delete L.Icon.Default.prototype._getIconUrl;
+// L.Icon.Default.mergeOptions({
+//   iconRetinaUrl: markerIcon2x,
+//   iconUrl: markerIcon,
+//   shadowUrl: markerShadow,
+// });
 
-// export default MapComponent;
+const MapComponent = ({ latitude, longitude }) => {
+  if (!latitude || !longitude) {
+    return <p className="text-red-500">Invalid coordinates provided.</p>;
+  }
+
+  console.log(longitude, latitude);
+  const position = [latitude, longitude];
+
+  return (
+    <div className="w-full h-96">
+      <MapContainer
+        center={position}
+        zoom={13}
+        scrollWheelZoom={false}
+        className="h-full w-full"
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <Marker position={position}>
+          <Popup>
+            Parcel Location: {latitude}, {longitude}
+          </Popup>
+        </Marker>
+      </MapContainer>
+    </div>
+  );
+};
+
+export default MapComponent;
