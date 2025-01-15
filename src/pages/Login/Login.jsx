@@ -21,7 +21,9 @@ const Login = () => {
   const { signIn, signInWithGoogle, loading, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state?.from?.pathname || "/";
+  // const from = location?.state?.from?.pathname || "/";
+  const from = location?.state?.from?.pathname || "/dashboard";
+
   if (loading) return <LoadingSpinner />;
   if (user) return <Navigate to={from} replace={true} />;
   // form submit handler

@@ -26,7 +26,8 @@ const MapComponent = ({ latitude, longitude }) => {
   }
 
   console.log(longitude, latitude);
-  const position = [latitude, longitude];
+  // const position = [latitude, longitude];
+  const position = [51.505, -0.09];
 
   return (
     <div className="w-full h-96">
