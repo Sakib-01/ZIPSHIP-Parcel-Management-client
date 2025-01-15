@@ -16,6 +16,7 @@
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "firebase": "^11.1.0",
+    "leaflet": "^1.9.4",
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.0",
     "match-sorter": "^8.0.0",
@@ -28,8 +29,8 @@
     "react-router-dom": "^7.1.1",
     "react-spinners": "^0.15.0",
     "react-tooltip": "^5.28.0",
-    "sort-by": "^1.2.0",
-    "sweetalert2": "^11.15.10",
+    "sort-by": "^0.0.2",
+    "sweetalert2": "^11.6.13",
     "swiper": "^11.2.0"
   },
   "devDependencies": {

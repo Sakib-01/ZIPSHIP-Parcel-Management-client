@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+// import MapComponent from "../../../components/MapComponent/MapComponent";
 
 const MyDelivery = () => {
   const { user } = useAuth();
@@ -9,6 +11,9 @@ const MyDelivery = () => {
   const [parcels, setParcels] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isParcelLoading, setIsParcelLoading] = useState(true);
+
+  // const [showMap, setShowMap] = useState(false);
+
   // Fetch user data
   useEffect(() => {
     if (user?.email) {
@@ -43,7 +48,51 @@ const MyDelivery = () => {
     }
   }, [userData?._id]);
 
+  // const handleButtonClick = () => {
+  //   setShowMap(true); // Set to true when the button is clicked
+  // };
   console.log(parcels);
+
+  // Handle action confirmation
+  const handleActionConfirm = async (parcelId, newStatus) => {
+    const action = newStatus === "delivered" ? "delivered" : "cancel";
+    const result = await Swal.fire({
+      title: `Are you sure?`,
+      text: `Do you want to ${action} this parcel?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes, ${action} it!`,
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const res = await axiosSecure.patch(`/update-delivery/${parcelId}`, {
+          status: newStatus,
+        });
+        if (res.data.modifiedCount > 0) {
+          Swal.fire("Success!", `Parcel has been ${action}ed.`, "success");
+          setParcels((prevParcels) =>
+            prevParcels.map((parcel) =>
+              parcel._id === parcelId
+                ? { ...parcel, status: newStatus }
+                : parcel
+            )
+          );
+        } else {
+          Swal.fire("Error!", "Could not update the parcel status.", "error");
+        }
+      } catch (error) {
+        console.error(`Error updating parcel status:`, error);
+        Swal.fire(
+          "Error!",
+          "An error occurred while updating the parcel.",
+          "error"
+        );
+      }
+    }
+  };
   return (
     <div>
       <h2>my delivery</h2>
@@ -89,13 +138,37 @@ const MyDelivery = () => {
                     {parcel?.approxDeliveryDate}
                   </td>
                   <td className="text-center text-black border px-4 py-2 space-y-2">
-                    <button className="bg-blue-500 text-white px-2 py-1 rounded w-full">
+                    <button
+                      className="bg-blue-500 text-white px-2 py-1 rounded w-full"
+                      // onClick={() =>
+                      //   alert(`View location for parcel ID: ${parcel.id}`)
+                      // }
+                      // onClick={handleButtonClick}
+                    >
                       View Location
+                      {/* {showMap && (
+                        <div className="mt-4">
+                          <MapComponent
+                            latitude={parcel.latitude}
+                            longitude={parcel.longitude}
+                          />
+                        </div>
+                      )} */}
                     </button>
-                    <button className="bg-red-500 text-white px-2 py-1 rounded w-full">
+                    <button
+                      className="bg-red-500 text-white px-2 py-1 rounded w-full"
+                      onClick={() =>
+                        handleActionConfirm(parcel._id, "Returned")
+                      }
+                    >
                       Cancel
                     </button>
-                    <button className="bg-green-500 text-white px-2 py-1 rounded w-full">
+                    <button
+                      className="bg-green-500 text-white px-2 py-1 rounded w-full"
+                      onClick={() =>
+                        handleActionConfirm(parcel._id, "delivered")
+                      }
+                    >
                       Deliver
                     </button>
                   </td>
