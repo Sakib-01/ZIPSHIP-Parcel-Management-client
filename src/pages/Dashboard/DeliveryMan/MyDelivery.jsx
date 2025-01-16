@@ -3,7 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import MapComponent from "../../../components/MapComponent/MapComponent";
-// import MapComponent from "../../../components/MapComponent/MapComponent";
+import { MdFileDownloadDone } from "react-icons/md";
 
 const MyDelivery = () => {
   const { user } = useAuth();
@@ -12,11 +12,8 @@ const MyDelivery = () => {
   const [parcels, setParcels] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isParcelLoading, setIsParcelLoading] = useState(true);
-
   const [selectedParcel, setSelectedParcel] = useState(null);
-
-  const [showMap, setShowMap] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch user data
   useEffect(() => {
@@ -41,7 +38,7 @@ const MyDelivery = () => {
       const fetchParcels = async () => {
         try {
           const res = await axiosSecure.get(`/myParcel/${userData._id}`);
-          setParcels(res.data);
+          setParcels(res.data.reverse());
           setIsParcelLoading(false);
         } catch (error) {
           console.error("Error fetching Parcels:", error);
@@ -52,23 +49,24 @@ const MyDelivery = () => {
     }
   }, [userData?._id]);
 
-  // const handleButtonClick = () => {
-  //   setShowMap(true); // Set to true when the button is clicked
-  // };
-
+  // Handle View Location
   const handleViewLocation = (latitude, longitude) => {
-    console.log(latitude, longitude);
-    setSelectedLocation({ latitude, longitude });
+    setSelectedParcel({ latitude, longitude });
+    setIsModalOpen(true); // Open modal
   };
 
-  console.log(parcels);
-  console.log(selectedLocation);
+  // Handle Close Modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedParcel(null);
+  };
 
-  // Handle action confirmation
+  // Handle Action Confirm
+  // Handle Action Confirm
   const handleActionConfirm = async (parcelId, newStatus) => {
     const action = newStatus === "delivered" ? "delivered" : "cancel";
     const result = await Swal.fire({
-      title: `Are you sure?`,
+      title: "Are you sure?",
       text: `Do you want to ${action} this parcel?`,
       icon: "warning",
       showCancelButton: true,
@@ -95,7 +93,7 @@ const MyDelivery = () => {
           Swal.fire("Error!", "Could not update the parcel status.", "error");
         }
       } catch (error) {
-        console.error(`Error updating parcel status:`, error);
+        console.error("Error updating parcel status:", error);
         Swal.fire(
           "Error!",
           "An error occurred while updating the parcel.",
@@ -104,12 +102,12 @@ const MyDelivery = () => {
       }
     }
   };
+
   return (
     <div>
-      <h2>my delivery</h2>
-
+      <h2 className="text-2xl font-bold">My Delivery</h2>
       <div className="p-4">
-        <h2 className="text-2xl font-bold mb-4">My Delivery List</h2>
+        <h2 className="text-xl font-bold mb-4">My Delivery List</h2>
         <div className="overflow-x-auto">
           <table className="table-auto w-full border-collapse border border-gray-300">
             <thead>
@@ -121,6 +119,7 @@ const MyDelivery = () => {
                 <th className="border px-4 py-2">Booked User’s Phone</th>
                 <th className="border px-4 py-2">Requested Delivery Date</th>
                 <th className="border px-4 py-2">Approx. Delivery Date</th>
+                <th className="border px-4 py-2">Parcel status</th>
                 <th className="border px-4 py-2">Actions</th>
               </tr>
             </thead>
@@ -148,53 +147,70 @@ const MyDelivery = () => {
                   <td className="text-center text-black border px-4 py-2">
                     {parcel?.approxDeliveryDate}
                   </td>
-                  <td className="text-center text-black border px-4 py-2 space-y-2">
-                    <button
-                      className="bg-blue-500 text-white px-2 py-1 rounded w-full"
-                      // onClick={handleButtonClick}
-                      onClick={() =>
-                        handleViewLocation(parcel.latitude, parcel.longitude)
-                      }
-                    >
-                      View Location
-                      {/* {showMap && (
-                        <div className="mt-4">
-                          <MapComponent
-                          latitude={parcel.latitude}
-                          longitude={parcel.longitude}
-                          />
-                        </div>
-                      )} */}
-                    </button>
-                    <button
-                      className="bg-red-500 text-white px-2 py-1 rounded w-full"
-                      onClick={() =>
-                        handleActionConfirm(parcel._id, "Returned")
-                      }
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="bg-green-500 text-white px-2 py-1 rounded w-full"
-                      onClick={() =>
-                        handleActionConfirm(parcel._id, "delivered")
-                      }
-                    >
-                      Deliver
-                    </button>
+                  <td className="text-center text-black border px-4 py-2">
+                    {parcel?.status}
                   </td>
+                  {parcel?.status === "delivered" ? (
+                    <div className="flex justify-center items-center text-3xl text-green-600 ">
+                      <MdFileDownloadDone />
+                    </div>
+                  ) : (
+                    <td className="border px-4 py-2 space-y-2">
+                      <button
+                        className="bg-blue-500 text-white px-2 py-1 rounded w-full"
+                        onClick={() =>
+                          handleViewLocation(parcel.latitude, parcel.longitude)
+                        }
+                      >
+                        View Location
+                      </button>
+                      <button
+                        className="bg-red-500 text-white px-2 py-1 rounded w-full"
+                        onClick={() =>
+                          handleActionConfirm(parcel._id, "Returned")
+                        }
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="bg-green-500 text-white px-2 py-1 rounded w-full"
+                        onClick={() =>
+                          handleActionConfirm(parcel._id, "delivered")
+                        }
+                      >
+                        Deliver
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-      {selectedLocation && (
-        <div className="mt-4">
-          <MapComponent
-            latitude={selectedLocation.latitude}
-            longitude={selectedLocation.longitude}
-          />
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={handleCloseModal}
+        >
+          <div
+            className="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full"
+            onClick={(e) => e.stopPropagation()} // Prevent modal close on content click
+          >
+            <h3 className="text-lg font-bold mb-4">Parcel Location</h3>
+            <MapComponent
+              latitude={selectedParcel.latitude}
+              longitude={selectedParcel.longitude}
+            />
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded mt-4 w-full"
+              onClick={handleCloseModal}
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
     </div>

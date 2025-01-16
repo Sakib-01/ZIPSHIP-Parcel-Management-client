@@ -29,8 +29,8 @@ const Sidebar = () => {
   // Logout Handler
   const handleLogout = async () => {
     try {
-      await logOut(); // Perform logout action
       navigate("/"); // Redirect to home page
+      await logOut(); // Perform logout action
     } catch (err) {
       console.error("Logout failed", err);
     }

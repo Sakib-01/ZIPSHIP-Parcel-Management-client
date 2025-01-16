@@ -42,6 +42,11 @@ const Login = () => {
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
+      navigate(from, { replace: true });
+      console.log("ok");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     }
   };
 
