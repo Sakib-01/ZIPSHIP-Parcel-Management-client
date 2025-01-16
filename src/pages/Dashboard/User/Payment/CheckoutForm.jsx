@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import Confetti from "react-confetti";
 
 const CheckoutForm = ({ parcel }) => {
   const [error, setError] = useState("");
@@ -14,6 +15,7 @@ const CheckoutForm = ({ parcel }) => {
   const { user } = useAuth();
   const totalPrice = parcel?.price;
   //   console.log(totalPrice);
+  const [paymentSucceeded, setPaymentSucceeded] = useState(false);
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -67,6 +69,7 @@ const CheckoutForm = ({ parcel }) => {
         console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
         // now save the payment in the database
+        setPaymentSucceeded(true);
         const payment = {
           email: user.email,
           price: totalPrice,
@@ -79,7 +82,7 @@ const CheckoutForm = ({ parcel }) => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Thank you for the taka paisa",
+            title: "Payment Successful, Thank You",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -90,6 +93,7 @@ const CheckoutForm = ({ parcel }) => {
   return (
     <div>
       checkout form
+      {paymentSucceeded && <Confetti />}
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{

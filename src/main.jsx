@@ -7,6 +7,9 @@ import Theme from "./providers/theme/Theme.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+import "react-date-range/dist/styles.css"; // Main style file
+import "react-date-range/dist/theme/default.css"; // Theme file
+
 import "aos/dist/aos.css"; // Import AOS styles
 import { Toaster } from "react-hot-toast";
 

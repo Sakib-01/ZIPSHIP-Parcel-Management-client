@@ -38,7 +38,7 @@ const AllUser = () => {
       console.error("Error updating user role:", error);
     }
   };
-
+  console.log(users);
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">All Users</h2>
@@ -59,10 +59,8 @@ const AllUser = () => {
               <td className="border text-text px-4 py-2">
                 {user.phone || "N/A"}
               </td>
-              <td className="border text-text px-4 py-2">{user.role}</td>
-              <td className="border text-text px-4 py-2">
-                {user.totalSpent || 0}
-              </td>
+              <td className="border text-text px-4 py-2">{user.parcelCount}</td>
+              <td className="border text-text px-4 py-2">{user.totalPrice}</td>
               <td className="border text-text px-4 py-2">
                 <button
                   className="bg-primary text-black px-2 py-1 mr-2 rounded"

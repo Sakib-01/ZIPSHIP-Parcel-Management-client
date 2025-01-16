@@ -77,10 +77,7 @@ export const router = createBrowserRouter([
         path: "my-review",
         element: <MyReview />,
       },
-      // {
-      //   path: "/dashboard/map",
-      //   element: <MapComponent />,
-      // },
+
       // admin route
       {
         path: "statistics",
