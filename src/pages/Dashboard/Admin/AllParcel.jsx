@@ -13,15 +13,17 @@ const AllParcel = () => {
   const [currentParcelId, setCurrentParcelId] = useState(null);
   const [filters, setFilters] = useState({ from: "", to: "" });
 
+  const [searchStatus, setSearchStatus] = useState("");
+
   const {
     data: parcels = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["parcels", filters],
+    queryKey: ["parcels", filters, searchStatus],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/all-parcel?from=${filters.from}&to=${filters.to}`
+        `/all-parcel?from=${filters.from}&to=${filters.to}&status=${searchStatus}`
       );
       return res.data;
     },
@@ -80,30 +82,52 @@ const AllParcel = () => {
         All Parcels
       </h2>
       {/* Search Filters */}
-      <div className="flex  gap-2">
-        <div>
-          <label htmlFor="deliveryDate" className="block mb-2">
-            Search from Date
-          </label>
-          <input
-            type="date"
-            value={filters.from}
-            className="border-2 mb-10"
-            onChange={(e) => setFilters({ ...filters, from: e.target.value })}
-          />
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex  gap-2">
+          <div>
+            <label htmlFor="deliveryDate" className="block mb-2">
+              Search from Date
+            </label>
+            <input
+              type="date"
+              value={filters.from}
+              className="border-2 mb-10"
+              onChange={(e) => setFilters({ ...filters, from: e.target.value })}
+            />
+          </div>
+          <div>
+            <label htmlFor="deliveryDate" className="block mb-2">
+              to Date
+            </label>
+            <input
+              type="date"
+              value={filters.to}
+              className="border-2 mb-10"
+              onChange={(e) => setFilters({ ...filters, to: e.target.value })}
+            />
+          </div>
+          {/* <button onClick={fetchParcels}>Search</button> */}
         </div>
         <div>
-          <label htmlFor="deliveryDate" className="block mb-2">
-            to Date
-          </label>
-          <input
-            type="date"
-            value={filters.to}
-            className="border-2 mb-10"
-            onChange={(e) => setFilters({ ...filters, to: e.target.value })}
-          />
+          <div className="flex justify-center items-center gap-5">
+            <label htmlFor="status" className="block text-2xl ">
+              Status
+            </label>
+            <select
+              id="status"
+              className="border border-gray-300 p-2 w-full"
+              value={searchStatus}
+              onChange={(e) => setSearchStatus(e.target.value)}
+            >
+              <option value="">Select Status</option>
+              <option value="pending">Pending</option>
+              <option value="On The Way">On The Way</option>
+              <option value="delivered">Delivered</option>
+              <option value="returned">Returned</option>
+              <option value="canceled">Canceled</option>
+            </select>
+          </div>
         </div>
-        {/* <button onClick={fetchParcels}>Search</button> */}
       </div>
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-300 bg-background text-text">

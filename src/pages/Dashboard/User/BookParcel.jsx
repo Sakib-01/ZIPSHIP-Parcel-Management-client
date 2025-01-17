@@ -3,10 +3,12 @@ import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const BookParcel = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const { register, handleSubmit, watch, reset } = useForm();
 
   const [price, setPrice] = useState(0);
@@ -31,6 +33,7 @@ const BookParcel = () => {
     try {
       await axiosSecure.post("/parcel", parcelData);
       toast.success("Parcel booked successfully!");
+      navigate("/dashboard/my-parcel");
     } catch (err) {
       console.log(err);
     }

@@ -25,7 +25,7 @@ const MyParcel = () => {
       const res = await axiosSecure.get(
         `/my-parcel/${user?.email}?status=${selectedStatus}`
       );
-      return res.data;
+      return res.data.reverse();
     },
   });
 
@@ -42,8 +42,10 @@ const MyParcel = () => {
 
     if (confirmCancel.isConfirmed) {
       try {
-        const res = await axiosSecure.delete(`/delete/${parcelId}`);
-        if (res.data.deletedCount > 0) {
+        // const res = await axiosSecure.delete(`/delete/${parcelId}`);
+        const res = await axiosSecure.patch(`/cancel-parcel/${parcelId}`);
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
           Swal.fire("Cancelled!", "Your parcel has been cancelled.", "success");
           refetch(); // Refresh parcel list
         } else {
@@ -112,6 +114,7 @@ const MyParcel = () => {
             <option value="On The Way">On The Way</option>
             <option value="delivered">Delivered</option>
             <option value="returned">Returned</option>
+            <option value="canceled">Canceled</option>
           </select>
         </div>
       </div>
