@@ -55,7 +55,7 @@ const AllParcel = () => {
       const res = await axiosSecure.patch(`/update-parcel/${currentParcelId}`, {
         deliveryManId: selectedDeliveryMan,
         approximateDeliveryDate: deliveryDate,
-        status: selectedStatus,
+        // status: selectedStatus,
       });
       console.log(res.data);
       if (res.status === 200) {
@@ -224,7 +224,7 @@ const AllParcel = () => {
                 onChange={(e) => setDeliveryDate(e.target.value)}
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="deliveryMan" className="block mb-2">
                 Status
               </label>
@@ -239,7 +239,7 @@ const AllParcel = () => {
                 <option value="delivered">Delivered</option>
                 <option value="returned">Returned</option>
               </select>
-            </div>
+            </div> */}
 
             <div className="flex justify-end">
               <button
