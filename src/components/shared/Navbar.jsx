@@ -62,13 +62,13 @@ const Navbar = () => {
                   <hr className="my-2" />
                   <NavLink
                     to="/dashboard"
-                    className="block py-2 px-4 text-sm hover:bg-gray-100 rounded-md"
+                    className="block py-2 px-4 text-sm hover:bg-gray-900 hover:text-white rounded-md"
                   >
                     Dashboard
                   </NavLink>
                   <button
                     onClick={logOut}
-                    className="w-full text-left py-2 px-4 text-sm hover:bg-gray-100 rounded-md"
+                    className="w-full text-left py-2 px-4 text-sm hover:bg-gray-900 hover:text-white rounded-md"
                   >
                     Logout
                   </button>
