@@ -86,10 +86,14 @@ const CheckoutForm = ({ parcel }) => {
             showConfirmButton: false,
             timer: 1500,
           });
+          await axiosSecure.patch(`/update-parcel-payment/${parcel._id}`, {
+            payment: "done",
+          });
         }
       }
     }
   };
+  console.log(parcel._id);
   return (
     <div>
       checkout form

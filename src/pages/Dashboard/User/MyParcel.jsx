@@ -13,15 +13,18 @@ const MyParcel = () => {
   const [feedbackText, setFeedbackText] = useState("");
   const [deliveryMan, setDeliveryMan] = useState("");
   const [selectedParcel, setSelectedParcel] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState("");
   const axiosSecure = useAxiosSecure();
   const {
     data: parcels = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["myParcel", user?.email],
+    queryKey: ["myParcel", user?.email, selectedStatus],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/my-parcel/${user?.email}`);
+      const res = await axiosSecure.get(
+        `/my-parcel/${user?.email}?status=${selectedStatus}`
+      );
       return res.data;
     },
   });
@@ -88,10 +91,30 @@ const MyParcel = () => {
 
   if (isLoading) return <LoadingSpinner />;
   console.log(parcels);
+  console.log(selectedStatus);
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">My Parcels</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold mb-4">My Parcels</h2>
+        <div className="flex justify-center items-center gap-5">
+          <label htmlFor="status" className="block text-2xl ">
+            Status
+          </label>
+          <select
+            id="status"
+            className="border border-gray-300 p-2 w-full"
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+          >
+            <option value="">Select Status</option>
+            <option value="pending">Pending</option>
+            <option value="On The Way">On The Way</option>
+            <option value="delivered">Delivered</option>
+            <option value="returned">Returned</option>
+          </select>
+        </div>
+      </div>
 
       {/* Responsive Scrollable Table */}
       <div className="overflow-x-auto">
@@ -105,6 +128,7 @@ const MyParcel = () => {
               <th className="border px-4 py-2">Delivery Man ID</th>
               <th className="border px-4 py-2">Status</th>
               <th className="border px-4 py-2">Actions</th>
+              <th className="border px-4 py-2">Payment</th>
             </tr>
           </thead>
           <tbody>
@@ -155,16 +179,22 @@ const MyParcel = () => {
                     </button>
                   )}
                 </td>
-                <td className="border px-4 py-2 space-x-2">
-                  <Link
-                    to="/dashboard/payment"
-                    state={{ parcel }}
-                    // to={{ pathname: "/dashboard/payment", state: { parcel } }}
-                    className="bg-blue-500 text-white px-2 py-1 rounded"
-                  >
-                    PAY
-                  </Link>
-                </td>
+                {parcel?.payment === "done" ? (
+                  <div className="flex justify-center items-center text-lg text-green-500 px-5">
+                    paid
+                  </div>
+                ) : (
+                  <td className="border px-4 py-2 space-x-2">
+                    <Link
+                      to="/dashboard/payment"
+                      state={{ parcel }}
+                      // to={{ pathname: "/dashboard/payment", state: { parcel } }}
+                      className="bg-blue-500 text-white px-2 py-1 rounded"
+                    >
+                      PAY
+                    </Link>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

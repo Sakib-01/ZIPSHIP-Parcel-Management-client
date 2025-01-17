@@ -107,7 +107,7 @@ const MyDelivery = () => {
   if (isParcelLoading) return <LoadingSpinner></LoadingSpinner>;
   return (
     <div>
-      <h2 className="text-2xl font-bold">My Delivery List</h2>
+      <h2 className="text-2xl font-bold text-primary mt-2">My Delivery List</h2>
       {parcels?.length > 0 ? (
         <div className="p-4">
           <div className="overflow-x-auto">
