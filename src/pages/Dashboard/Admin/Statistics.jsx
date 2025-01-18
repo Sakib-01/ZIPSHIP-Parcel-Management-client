@@ -84,7 +84,7 @@ const Statistics = () => {
 
       <div className="stats shadow grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-5">
         <div className="stat place-items-center">
-          <div className="stat-title">Total Parcel Booked</div>
+          <div className="stat-title">Parcels</div>
           <div className="stat-value">{cards?.booking}</div>
         </div>
 
