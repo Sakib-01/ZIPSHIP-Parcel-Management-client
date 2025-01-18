@@ -25,7 +25,7 @@ const AllParcel = () => {
       const res = await axiosSecure.get(
         `/all-parcel?from=${filters.from}&to=${filters.to}&status=${searchStatus}`
       );
-      return res.data;
+      return res.data.reverse();
     },
   });
 
@@ -85,7 +85,7 @@ const AllParcel = () => {
       <div className="flex flex-col md:flex-row justify-between items-center">
         <div className="flex  gap-2">
           <div>
-            <label htmlFor="deliveryDate" className="block mb-2">
+            <label htmlFor="deliveryDate" className="block mb-2 text-text">
               Search from Date
             </label>
             <input
@@ -96,7 +96,7 @@ const AllParcel = () => {
             />
           </div>
           <div>
-            <label htmlFor="deliveryDate" className="block mb-2">
+            <label htmlFor="deliveryDate" className="block mb-2 text-text">
               to Date
             </label>
             <input
@@ -110,7 +110,7 @@ const AllParcel = () => {
         </div>
         <div>
           <div className="flex justify-center items-center gap-5">
-            <label htmlFor="status" className="block text-2xl ">
+            <label htmlFor="status" className="block text-2xl text-text">
               Status
             </label>
             <select
@@ -158,7 +158,7 @@ const AllParcel = () => {
                   {parcel.phoneNumber}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {parcel.bookingDate}
+                  {new Date(parcel.bookingDate).toLocaleString()}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   {parcel.deliveryDate}

@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <header className="fixed bg-background top-0 left-0 w-full z-50 shadow-md">
-      <nav className="max-w-screen-2xl w-11/12 mx-auto py-4 px-4 flex justify-between items-center">
+      <nav className="max-w-screen-2xl w-full md:w-10/12 mx-auto py-4 px-4 flex justify-between items-center">
         {/* Logo + Website Name */}
         <NavLink
           to="/"

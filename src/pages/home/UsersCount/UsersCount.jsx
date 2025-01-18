@@ -17,7 +17,7 @@ const UsersCount = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="w-8/12 mx-auto relative -top-20 mt-5 bg-secondary border-b-4 rounded-3xl border-primary p-10">
+    <div className="w-full md:w-8/12 mx-auto relative -top-16 mt-5 bg-secondary border-b-4 rounded-3xl border-primary p-10">
       <div className="grid grid-cols-3 text-center md:text-center md:grid-cols-3 gap-6 md:gap-10 w-full 2xl:pr-28">
         <div>
           <p className="text-4xl text-center font-medium text-text">

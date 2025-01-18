@@ -9,9 +9,9 @@ const Hero = () => {
       style={{ backgroundImage: `url(${bannerImage})` }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-0 flex flex-col justify-center items-start text-white px-8">
+      <div className="absolute inset-0 bg-black bg-opacity-0 flex flex-col justify-center items-start text-white pl-8">
         {/* Heading Text */}
-        <div className="w-full md:w-6/12 lg:pl-16">
+        <div className="w-full md:w-6/12 lg:pl-24">
           <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-[#0e7490] bg-clip-text">
             Fast & Reliable Delivery
           </h1>

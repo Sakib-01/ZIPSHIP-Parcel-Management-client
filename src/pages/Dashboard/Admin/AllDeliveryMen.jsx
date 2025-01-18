@@ -22,25 +22,33 @@ const AllDeliveryMen = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">All Delivery Men</h2>
+      <h2 className="text-2xl font-bold mb-4 text-primary">All Delivery Men</h2>
 
       {/* Responsive Scrollable Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto border-collapse border border-gray-300 text-center">
-          <thead className="bg-gray-100 text-gray-700">
+          <thead className=" text-gray-700">
             <tr>
-              <th className="border px-4 py-2">Delivery Man's Name</th>
-              <th className="border px-4 py-2">Phone Number</th>
-              <th className="border px-4 py-2">Number of Parcels Delivered</th>
-              <th className="border px-4 py-2">Average Review</th>
+              <th className="border px-4 py-2 text-text">
+                Delivery Man's Name
+              </th>
+              <th className="border px-4 py-2 text-text">Phone Number</th>
+              <th className="border px-4 py-2 text-text">
+                Number of Parcels Delivered
+              </th>
+              <th className="border px-4 py-2 text-text">Average Review</th>
             </tr>
           </thead>
           <tbody>
             {deliveryMen.map((deliveryMan) => (
               <tr key={deliveryMan._id}>
-                <td className="border px-4 py-2">{deliveryMan.name}</td>
-                <td className="border px-4 py-2">{deliveryMan.phone}</td>
-                <td className="border px-4 py-2">
+                <td className="border px-4 py-2 text-text">
+                  {deliveryMan.name}
+                </td>
+                <td className="border px-4 py-2 text-text">
+                  {deliveryMan.phone || "N/A"}
+                </td>
+                <td className="border px-4 py-2 text-text">
                   {deliveryMan.deliveredCount}
                 </td>
                 <td className="flex justify-center items-center text-yellow-400 border px-4 py-2">

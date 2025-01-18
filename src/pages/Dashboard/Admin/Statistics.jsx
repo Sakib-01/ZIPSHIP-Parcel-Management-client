@@ -50,7 +50,7 @@ const Statistics = () => {
         Admin statistic
       </h2>
       <div className="flex flex-col md:flex-row justify-center items-center gap-10">
-        <div className="w-8/12">
+        <div className="w-8/12 text-text bg-slate-100 p-10">
           <Chart
             options={options}
             series={chartData.series}

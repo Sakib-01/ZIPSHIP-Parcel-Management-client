@@ -41,27 +41,35 @@ const AllUser = () => {
   console.log(users);
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">All Users</h2>
+      <h2 className="text-4xl py-5 underline flex justify-center font-bold mb-4 text-primary">
+        All Users
+      </h2>
       <table className="table-auto w-full border-collapse border border-gray-300">
         <thead>
           <tr>
-            <th className="border px-4 py-2">User Name</th>
-            <th className="border px-4 py-2">Phone Number</th>
-            <th className="border px-4 py-2">Parcels Booked</th>
-            <th className="border px-4 py-2">Total Spent ($)</th>
-            <th className="border px-4 py-2">Actions</th>
+            <th className="border px-4 py-2 text-text">User Name</th>
+            <th className="border px-4 py-2 text-text">Phone Number</th>
+            <th className="border px-4 py-2 text-text">Parcels Booked</th>
+            <th className="border px-4 py-2 text-text">Total Spent ($)</th>
+            <th className="border px-4 py-2 text-text">Actions</th>
           </tr>
         </thead>
         <tbody>
           {currentUsers.map((user) => (
             <tr key={user._id}>
-              <td className="border text-text px-4 py-2">{user.name}</td>
-              <td className="border text-text px-4 py-2">
+              <td className="border text-text px-4 py-2 text-center">
+                {user.name}
+              </td>
+              <td className="border text-text px-4 py-2 text-center">
                 {user.phone || "N/A"}
               </td>
-              <td className="border text-text px-4 py-2">{user.parcelCount}</td>
-              <td className="border text-text px-4 py-2">{user.totalPrice}</td>
-              <td className="border text-text px-4 py-2">
+              <td className="border text-text px-4 py-2 text-center">
+                {user.parcelCount}
+              </td>
+              <td className="border text-text px-4 py-2 text-center">
+                {user.totalPrice}
+              </td>
+              <td className="border text-text px-4 py-2 text-center">
                 <button
                   className="bg-primary text-black px-2 py-1 mr-2 rounded"
                   onClick={() => handleRoleUpdate(user._id, "deliveryman")}

@@ -99,17 +99,21 @@ export const router = createBrowserRouter([
       {
         path: "mydelivery",
         element: (
-          <DeliveryManRoute>
-            <MyDelivery></MyDelivery>
-          </DeliveryManRoute>
+          <PrivateRoute>
+            <DeliveryManRoute>
+              <MyDelivery></MyDelivery>
+            </DeliveryManRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "my-review",
         element: (
-          <DeliveryManRoute>
-            <MyReview />
-          </DeliveryManRoute>
+          <PrivateRoute>
+            <DeliveryManRoute>
+              <MyReview />
+            </DeliveryManRoute>
+          </PrivateRoute>
         ),
       },
 

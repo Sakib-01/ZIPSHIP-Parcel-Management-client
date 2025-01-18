@@ -34,8 +34,10 @@ const Frature = () => {
   ];
 
   return (
-    <div className="w-11/12 mx-auto my-10">
-      <h2 className="text-2xl font-bold text-center mb-6">Our Features</h2>
+    <div className="w-10/12 mx-auto my-10">
+      <h2 className="text-4xl font-bold text-center mb-6 text-primary ">
+        Our Features
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {features.map((feature) => (
           <div

@@ -81,7 +81,7 @@ const Sidebar = () => {
                 /> */}
               </Link>
               {/* <h2 className="text-2xl ">{role}</h2> */}
-              <h2 className="text-2xl text-center">
+              <h2 className="text-2xl text-center text-white dark:text-black">
                 Welcome <br />
                 {user?.displayName}
               </h2>
