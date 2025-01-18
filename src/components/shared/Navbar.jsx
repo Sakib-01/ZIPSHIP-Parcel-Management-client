@@ -6,6 +6,8 @@ import { Link, NavLink } from "react-router-dom";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { ThemeContext } from "../../providers/theme/Theme";
 import useAuth from "../../hooks/useAuth";
+import logo from "../../assets/img/logo1.webp";
+import logo2 from "../../assets/img/logo2.webp";
 
 const Navbar = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
@@ -22,8 +24,8 @@ const Navbar = () => {
           to="/"
           className="flex items-center gap-2 text-2xl font-bold text-primary"
         >
-          <img src="/logo.png" alt="Logo" className="w-8 h-8" />
-          MyWebsite
+          <img src={logo} alt="Logo" className="w-14 h-14" />
+          ZipShip
         </NavLink>
 
         {/* Navigation Items */}

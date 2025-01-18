@@ -7,13 +7,19 @@ import UsersCount from "./UsersCount/UsersCount";
 import Frature from "./Feature/Frature";
 import About from "./About/About";
 import Review from "./Review/Review";
+import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 
 const Home = () => {
+  document.title = "ZipShip || Home";
   useEffect(() => {
     AOS.init({ duration: 500, once: true });
   }, []);
   return (
     <div className="space-y-20">
+      <Helmet>
+        <title> ZipShip | Home Page</title>
+      </Helmet>
       <div data-aos="fade-up">
         <Hero />
         <UsersCount />

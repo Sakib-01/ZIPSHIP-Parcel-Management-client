@@ -2,6 +2,8 @@ import React from "react";
 import playstore from "../../assets/img/Google_Play_Store.png";
 import appstore from "../../assets/img/App-Store.png";
 import { FaFacebook, FaLinkedin, FaYoutube } from "react-icons/fa";
+import logo from "../../assets/img/logo1.webp";
+import logo2 from "../../assets/img/logo2.webp";
 
 const Footer = () => {
   return (
@@ -9,7 +11,8 @@ const Footer = () => {
       <div className="w-10/12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6 ">
         {/* Logo and App Section */}
         <div className="flex flex-col justify-center items-center text-start">
-          <h1 className="text-2xl font-bold text-primary">name</h1>
+          <img className="w-20 h-20" src={logo} alt="" />
+          <h1 className="text-2xl font-bold text-primary">ZipShip</h1>
           <p className="mt-2 text-text">
             Download our app for the fastest solutions
           </p>
