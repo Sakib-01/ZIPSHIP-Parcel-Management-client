@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const BookParcel = () => {
   const axiosSecure = useAxiosSecure();
@@ -32,8 +33,13 @@ const BookParcel = () => {
     // save parcel in db
     try {
       await axiosSecure.post("/parcel", parcelData);
-      toast.success("Parcel booked successfully!");
+      // toast.success("Parcel booked successfully!");
       navigate("/dashboard/my-parcel");
+
+      Swal.fire("Success!", "Your parcel has been booked.", "success");
+      setIsModalOpen(false);
+      setRating(0);
+      setFeedbackText("");
     } catch (err) {
       console.log(err);
     }

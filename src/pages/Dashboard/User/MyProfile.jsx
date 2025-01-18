@@ -48,6 +48,7 @@ const MyProfile = () => {
       if (response.data.modifiedCount > 0) {
         console.log("User profile updated successfully");
         toast.success("profile update successfully");
+        refetch();
         setUpdatedUser({ ...updatedUser, displayName: name, photoURL });
       }
     } catch (err) {

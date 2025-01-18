@@ -95,6 +95,12 @@ const MyParcel = () => {
   console.log(parcels);
   console.log(selectedStatus);
 
+  if (parcels?.length <= 0)
+    return (
+      <h2 className="flex text-5xl underline text-primary justify-center items-center text-center">
+        ... You have not send any parcel yet ...
+      </h2>
+    );
   return (
     <div className="p-6">
       <div className="flex justify-between items-center">

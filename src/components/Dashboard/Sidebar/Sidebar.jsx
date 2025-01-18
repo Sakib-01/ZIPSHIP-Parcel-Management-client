@@ -15,7 +15,7 @@ import { BsMoon, BsSun } from "react-icons/bs";
 import { ThemeContext } from "../../../providers/theme/Theme";
 
 const Sidebar = () => {
-  const { logOut } = useAuth();
+  const { user, logOut } = useAuth();
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 
   const [isActive, setActive] = useState();
@@ -80,7 +80,11 @@ const Sidebar = () => {
                   height="100"
                 /> */}
               </Link>
-              <h2 className="text-2xl">{role}</h2>
+              {/* <h2 className="text-2xl ">{role}</h2> */}
+              <h2 className="text-2xl text-center">
+                Welcome <br />
+                {user?.displayName}
+              </h2>
             </div>
           </div>
 

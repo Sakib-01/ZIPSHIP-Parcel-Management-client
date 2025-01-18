@@ -43,9 +43,7 @@ const TopDeliveryman = () => {
               <p className="text-gray-600">
                 Parcels Delivered: {man.totalReviews}
               </p>
-              <p className="text-yellow-500">
-                ⭐ {man.averageRating.toFixed(1)}
-              </p>
+              <p className="text-yellow-500">⭐ {man.averageRating}</p>
             </div>
           ))}
         </div>
