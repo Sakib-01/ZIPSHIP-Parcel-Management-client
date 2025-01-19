@@ -4,6 +4,8 @@ import AOS from "aos";
 import { Link, useNavigate } from "react-router-dom";
 import { imageUpload, saveUser } from "../../api/utils";
 import toast from "react-hot-toast";
+import Lottie from "lottie-react";
+import signup from "../../assets/lottie/registration.json";
 
 const Signup = () => {
   const { createUser, updateUserProfile, signInWithGoogle } = useAuth();
@@ -239,6 +241,7 @@ const Signup = () => {
             Create your account to start your journey with us and enjoy
             exclusive content.
           </p>
+          <Lottie animationData={signup}></Lottie>
         </div>
       </div>
     </div>

@@ -43,9 +43,9 @@ const Navbar = () => {
 
           <button className="relative focus:outline-none">
             <FaBell className="text-2xl text-text hover:text-primary transition duration-300" />
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+            {/* <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
               3
-            </span>
+            </span> */}
           </button>
 
           {/* User Authentication */}

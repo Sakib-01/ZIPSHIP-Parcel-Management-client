@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <div className="space-y-20">
       <Helmet>
-        <title> ZipShip | Home Page</title>
+        <title> ZipShip </title>
       </Helmet>
       <div data-aos="fade-up">
         <Hero />
