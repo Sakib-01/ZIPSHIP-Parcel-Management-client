@@ -90,8 +90,8 @@ Currently, two official plugins are available:
 - View assigned deliveries.
 - Mark deliveries as completed or canceled.
 - Manage received reviews.
-###- Delivery Man email-dman@gmail.com
-###- Delivery Man Password-Dman123
+- ### Delivery Man email: dman@gmail.com
+- ### Delivery Man Password: Dman123
 
 ### Admin
 
@@ -99,8 +99,8 @@ Currently, two official plugins are available:
 - Manage all users and delivery men.
 - View application statistics via interactive charts.
 - Perform CRUD operations for bookings and users.
-- ###- Admin email-admin@gmail.com
-- ###- Admin Password-Admin123
+- ### Admin email: admin@gmail.com
+- ### Admin Password: Admin123
 
 
 ---
