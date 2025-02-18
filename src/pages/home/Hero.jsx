@@ -21,7 +21,7 @@ const Hero = () => {
           </p>
 
           {/* Search Bar */}
-          <div className="flex">
+          {/* <div className="flex">
             <input
               type="text"
               placeholder="Track your delivery, check status, or search products..."
@@ -30,7 +30,7 @@ const Hero = () => {
             <button className="py-3 px-6 bg-primary text-white font-bold rounded-r-full hover:bg-opacity-90 transition">
               Track Now
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

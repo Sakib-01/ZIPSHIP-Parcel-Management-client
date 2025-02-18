@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -23,6 +23,8 @@ const Login = () => {
   const location = useLocation();
   // const from = location?.state?.from?.pathname || "/";
   const from = location?.state?.from?.pathname || "/dashboard";
+
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
 
   if (loading) return <LoadingSpinner />;
   if (user) return <Navigate to={from} replace={true} />;
@@ -80,6 +82,44 @@ const Login = () => {
             Welcome back!
           </p>
 
+          <h3 className="mt-3 text-lg bg-slate-300 p-5 rounded-xl text-center text-primary">
+            Credentials
+          </h3>
+          <div className="flex justify-between my-4">
+            <button
+              onClick={() =>
+                setCredentials({
+                  email: "user1@gmail.com",
+                  password: "User123",
+                })
+              }
+              className=" btn px-4 py-2 bg-primary hover:bg-accent text-black rounded-lg"
+            >
+              User
+            </button>
+            <button
+              onClick={() =>
+                setCredentials({
+                  email: "dman@gmail.com",
+                  password: "Dman123",
+                })
+              }
+              className="px-4 py-2 bg-primary hover:bg-accent text-black rounded-lg"
+            >
+              Delivery Man
+            </button>
+            <button
+              onClick={() =>
+                setCredentials({
+                  email: "admin@gmail.com",
+                  password: "Admin123",
+                })
+              }
+              className="px-4 py-2 bg-primary hover:bg-accent text-black rounded-lg"
+            >
+              Admin
+            </button>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="mt-4">
               <label
@@ -94,6 +134,10 @@ const Login = () => {
                 name="email"
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                 type="email"
+                value={credentials.email}
+                onChange={(e) =>
+                  setCredentials({ ...credentials, email: e.target.value })
+                }
               />
             </div>
 
@@ -113,6 +157,10 @@ const Login = () => {
                 name="password"
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                 type="password"
+                value={credentials.password}
+                onChange={(e) =>
+                  setCredentials({ ...credentials, password: e.target.value })
+                }
               />
             </div>
             <div className="mt-6">
