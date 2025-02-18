@@ -8,6 +8,7 @@ import Frature from "./Feature/Frature";
 import About from "./About/About";
 import Review from "./Review/Review";
 import { Helmet } from "react-helmet-async";
+import Contact from "./contact/Contact";
 // import { Helmet } from "react-helmet-async";
 
 const Home = () => {
@@ -37,6 +38,9 @@ const Home = () => {
       </div>
       <div id="review" data-aos="zoom-in">
         <Review />
+      </div>
+      <div id="contact" data-aos="zoom-in">
+        <Contact />
       </div>
     </div>
   );
