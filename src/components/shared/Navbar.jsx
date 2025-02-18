@@ -60,17 +60,7 @@ const Navbar = () => {
           >
             Home
           </NavLink>
-          <NavLink
-            to="/"
-            onClick={(e) => handleLinkClick(e, "review")}
-            className={({ isActive }) =>
-              `text-lg font-medium ${
-                isActive ? "text-primary" : "hover:text-primary"
-              }`
-            }
-          >
-            Review
-          </NavLink>
+
           <NavLink
             to="/"
             onClick={(e) => handleLinkClick(e, "feature")}
@@ -92,6 +82,28 @@ const Navbar = () => {
             }
           >
             About
+          </NavLink>
+          <NavLink
+            to="/"
+            onClick={(e) => handleLinkClick(e, "review")}
+            className={({ isActive }) =>
+              `text-lg font-medium ${
+                isActive ? "text-primary" : "hover:text-primary"
+              }`
+            }
+          >
+            Review
+          </NavLink>
+          <NavLink
+            to="/"
+            onClick={(e) => handleLinkClick(e, "contact")}
+            className={({ isActive }) =>
+              `text-lg font-medium ${
+                isActive ? "text-primary" : "hover:text-primary"
+              }`
+            }
+          >
+            Contact
           </NavLink>
 
           <button className="relative focus:outline-none">

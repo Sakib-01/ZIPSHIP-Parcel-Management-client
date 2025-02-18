@@ -1,6 +1,10 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const Contact = () => {
+  const handleSubmit = () => {
+    toast.success("Thank you for your message");
+  };
   return (
     <div className="w-10/12 mx-auto flex flex-col md:flex-row justify-between gap-10 py-10">
       {/* Contact Information Section */}
@@ -67,6 +71,7 @@ const Contact = () => {
           </div>
           <button
             type="submit"
+            onClick={() => handleSubmit()}
             className="w-full bg-primary text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition"
           >
             Send Message
