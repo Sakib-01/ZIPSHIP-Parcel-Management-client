@@ -1,18 +1,17 @@
-// Navbar.js
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FaBell } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
-
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { ThemeContext } from "../../providers/theme/Theme";
 import useAuth from "../../hooks/useAuth";
 import logo from "../../assets/img/logo1.webp";
-import logo2 from "../../assets/img/logo2.webp";
 
 const Navbar = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const { user, logOut } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home"); // Default section
+  const location = useLocation();
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
 
@@ -20,20 +19,41 @@ const Navbar = () => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(id); // Set active section when clicked
     }
   };
 
   const handleLinkClick = (e, target) => {
     e.preventDefault();
     if (location.pathname === "/") {
-      // If already on the homepage, scroll to the target section
       scrollToSection(target);
     } else {
-      // Navigate to the homepage and scroll to the target section
       navigate("/", { replace: true });
       setTimeout(() => scrollToSection(target), 100);
     }
   };
+
+  // Track scroll position to update active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["home", "feature", "about", "review", "contact"];
+      let currentSection = "home";
+
+      for (let id of sections) {
+        const section = document.getElementById(id);
+        if (
+          section &&
+          section.getBoundingClientRect().top <= window.innerHeight / 3
+        ) {
+          currentSection = id;
+        }
+      }
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header className="fixed bg-background top-0 left-0 w-full z-50 shadow-md">
@@ -49,68 +69,30 @@ const Navbar = () => {
 
         {/* Navigation Items */}
         <div className="flex items-center gap-6">
-          <NavLink
-            to="/"
-            onClick={(e) => handleLinkClick(e, "home")}
-            className={({ isActive }) =>
-              `text-lg font-medium ${
-                isActive ? "text-primary" : "hover:text-primary"
-              }`
-            }
-          >
-            Home
-          </NavLink>
+          {[
+            { id: "home", defaultText: "Home", activeText: "Home" },
+            { id: "feature", defaultText: "Feature", activeText: "Feature" },
+            { id: "about", defaultText: "About", activeText: "About" },
+            { id: "review", defaultText: "Review", activeText: "Review" },
+            { id: "contact", defaultText: "Contact", activeText: "Contact" },
+          ].map((item) => (
+            <NavLink
+              key={item.id}
+              to="/"
+              onClick={(e) => handleLinkClick(e, item.id)}
+              className={`text-lg font-medium ${
+                activeSection === item.id
+                  ? "text-primary underline"
+                  : "hover:underline hover:text-primary"
+              }`}
+            >
+              {activeSection === item.id ? item.activeText : item.defaultText}
+            </NavLink>
+          ))}
 
-          <NavLink
-            to="/"
-            onClick={(e) => handleLinkClick(e, "feature")}
-            className={({ isActive }) =>
-              `text-lg font-medium ${
-                isActive ? "text-primary" : "hover:text-primary"
-              }`
-            }
-          >
-            Feature
-          </NavLink>
-          <NavLink
-            to="/"
-            onClick={(e) => handleLinkClick(e, "about")}
-            className={({ isActive }) =>
-              `text-lg font-medium ${
-                isActive ? "text-primary" : "hover:text-primary"
-              }`
-            }
-          >
-            About
-          </NavLink>
-          <NavLink
-            to="/"
-            onClick={(e) => handleLinkClick(e, "review")}
-            className={({ isActive }) =>
-              `text-lg font-medium ${
-                isActive ? "text-primary" : "hover:text-primary"
-              }`
-            }
-          >
-            Review
-          </NavLink>
-          <NavLink
-            to="/"
-            onClick={(e) => handleLinkClick(e, "contact")}
-            className={({ isActive }) =>
-              `text-lg font-medium ${
-                isActive ? "text-primary" : "hover:text-primary"
-              }`
-            }
-          >
-            Contact
-          </NavLink>
-
+          {/* Notification Icon */}
           <button className="relative focus:outline-none">
             <FaBell className="text-2xl text-text hover:text-primary transition duration-300" />
-            {/* <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-              3
-            </span> */}
           </button>
 
           {/* User Authentication */}
@@ -149,6 +131,7 @@ const Navbar = () => {
               </button>
             </Link>
           )}
+
           {/* Dark/Light Mode Toggle */}
           <button
             onClick={toggleTheme}
