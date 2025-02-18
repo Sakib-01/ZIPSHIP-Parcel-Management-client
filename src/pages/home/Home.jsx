@@ -20,20 +20,22 @@ const Home = () => {
       <Helmet>
         <title> ZipShip </title>
       </Helmet>
-      <div data-aos="fade-up">
+      <div id="home" data-aos="fade-up">
         <Hero />
+      </div>
+      <div className="relative -top-10" data-aos="fade-up">
         <UsersCount />
       </div>
-      <div data-aos="fade-right">
+      <div id="feature" data-aos="fade-right">
         <Frature />
       </div>
-      <div data-aos="fade-left">
+      <div id="about" data-aos="fade-left">
         <About />
       </div>
-      <div data-aos="zoom-in">
+      <div id="dman" data-aos="zoom-in">
         <TopDeliveryman />
       </div>
-      <div data-aos="zoom-in">
+      <div id="review" data-aos="zoom-in">
         <Review />
       </div>
     </div>

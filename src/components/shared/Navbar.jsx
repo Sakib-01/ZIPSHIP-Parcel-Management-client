@@ -16,6 +16,25 @@ const Navbar = () => {
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
 
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleLinkClick = (e, target) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      // If already on the homepage, scroll to the target section
+      scrollToSection(target);
+    } else {
+      // Navigate to the homepage and scroll to the target section
+      navigate("/", { replace: true });
+      setTimeout(() => scrollToSection(target), 100);
+    }
+  };
+
   return (
     <header className="fixed bg-background top-0 left-0 w-full z-50 shadow-md">
       <nav className="max-w-screen-2xl w-full md:w-10/12 mx-auto py-4 px-4 flex justify-between items-center">
@@ -32,6 +51,7 @@ const Navbar = () => {
         <div className="flex items-center gap-6">
           <NavLink
             to="/"
+            onClick={(e) => handleLinkClick(e, "home")}
             className={({ isActive }) =>
               `text-lg font-medium ${
                 isActive ? "text-primary" : "hover:text-primary"
@@ -39,6 +59,39 @@ const Navbar = () => {
             }
           >
             Home
+          </NavLink>
+          <NavLink
+            to="/"
+            onClick={(e) => handleLinkClick(e, "review")}
+            className={({ isActive }) =>
+              `text-lg font-medium ${
+                isActive ? "text-primary" : "hover:text-primary"
+              }`
+            }
+          >
+            Review
+          </NavLink>
+          <NavLink
+            to="/"
+            onClick={(e) => handleLinkClick(e, "feature")}
+            className={({ isActive }) =>
+              `text-lg font-medium ${
+                isActive ? "text-primary" : "hover:text-primary"
+              }`
+            }
+          >
+            Feature
+          </NavLink>
+          <NavLink
+            to="/"
+            onClick={(e) => handleLinkClick(e, "about")}
+            className={({ isActive }) =>
+              `text-lg font-medium ${
+                isActive ? "text-primary" : "hover:text-primary"
+              }`
+            }
+          >
+            About
           </NavLink>
 
           <button className="relative focus:outline-none">
